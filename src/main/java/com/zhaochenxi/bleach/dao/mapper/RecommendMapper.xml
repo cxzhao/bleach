@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IRecommendDao">
+
+	<insert id="save" parameterType="Recommend">
+		<![CDATA[INSERT INTO recommend (id, cartoonName, reason, userName, createTime,userId, status, agree) VALUES
+		 (#{id},#{cartoonName},#{reason},#{userName},#{createTime},#{userId},#{status},#{agree})]]>
+	</insert>
+	
+	<select id="rowCount" resultType="java.lang.Integer">
+		<![CDATA[select count(*) as count from recommend]]>
+	</select>
+	
+	<select id="rowCountActive" resultType="java.lang.Integer">
+		<![CDATA[select count(*) as count from recommend where status = 0 ]]>
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[delete from recommend where id=#{id}]]>
+	</delete>
+
+	<update id="updateStatus">
+	<![CDATA[update recommend set status=#{1} where id=#{0}]]>
+	</update>
+	
+	<update id="updateAgree">
+	<![CDATA[update recommend set agree=#{1} where id=#{0}]]>
+	</update>
+	
+	<select id="queryAgreeById" parameterType="java.lang.String" resultType="java.lang.Integer">
+		<![CDATA[select agree from recommend where id=#{id}]]>
+	</select>
+	
+	<select id="queryOrderByTime" resultType="Recommend">
+		<![CDATA[select * from recommend where status=0 order by createTime desc limit #{0},#{1}]]>
+	</select>
+	
+	<select id="queryAllOrderByTime" resultType="Recommend">
+		<![CDATA[select * from recommend order by createTime desc limit #{0},#{1}]]>
+	</select>
+	
+	<select id="queryOrderByAgree" resultType="Recommend">
+		<![CDATA[select * from recommend where status=0 order by agree desc limit #{0},#{1}]]>
+	</select>
+	
+</mapper>    

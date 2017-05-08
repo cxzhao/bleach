@@ -1,0 +1,385 @@
+.et-font{
+	font-family: -apple-system, "Helvetica Neue", Arial, "PingFang SC", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.default-color{
+	color:#333;
+}
+
+a:link,a:visited{
+ text-decoration:none;  /*超链接无下划线*/
+}
+
+a:hover{
+ text-decoration:none;  /*鼠标放上去有下划线*/
+}
+
+.label-1{
+	color:#428bca;
+}
+
+.item{
+	padding:3px;
+	margin-buttom:0px;
+}
+
+.result-item{
+	float: left;
+	padding:3px;
+	margin-buttom:0px;
+	position: absolute;
+}
+
+.menu-color{
+ border-color: #e7e7e7;
+}
+
+.cartoon-img{
+	width:100%;
+	max-height:250px;
+}
+
+.footer{
+	padding-top:20px;
+	width:100%;
+	height:100px;
+	border-top:1px solid #DDDDDD;
+}
+
+.span-footer{
+	color:#888888;
+	text-align:center;
+}
+.span-footer a{
+	color:#888888;
+}
+
+.div-page{
+	width:100%;
+}
+
+.div-full{
+	width:100%;
+}
+
+.div-comment{
+	width:30%;
+	margin-left:70%;
+}
+
+.btn-img{
+	padding:0px;
+}
+
+.div-line{
+	margin-top:10px;
+	border-top:1px solid #CCCCCC;
+}
+
+.div-line-2{
+	margin-top:10px;
+	margin-bottom:6px;
+}
+
+.div-dashed{
+	margin-top:10px;
+	border-top:1px dashed #CCCCCC;
+}
+
+.div-dashed-0{
+	border-top:1px dashed #CCCCCC;
+}
+
+.div-padding-left{
+	padding-left:0px;
+}
+
+.div-padding-right{
+	padding-right:0px;
+}
+
+.div-padding-left-right{
+	padding-left:0px;
+	padding-right:0px;
+}
+
+.div-padding-left-right-3{
+	padding-left:3px;
+	padding-right:3px;
+}
+
+.div-center{
+	text-align:center;
+}
+
+
+
+.text-h4{
+	margin:0px;
+	color:#888888;
+}
+
+.text-h3-1{
+	color:#333333;
+}
+
+h3{
+	color:#0099FF;
+}
+
+h5{
+	margin:0px;
+	color:#666666;
+}
+
+.text-h4-1{
+	color:#009999;
+}
+
+.text-h5{
+	margin:0px;
+	color:#666666;
+}
+
+.span-1{
+	color:#0099FF;
+	font-size:18px;
+}
+
+.span-2{
+	color:#CCCCCC;
+}
+
+.span-3{
+	color:#FFCC00;
+}
+
+.span-4{
+	color:#CCCCCC;
+}
+
+.span-5{
+	color:#CCCCCC;
+	font-size:12px;	
+}
+
+.span-6{
+	margin-left:5px;
+	background-color:#FFFFFF;
+	color:#eb5e26;
+	font-size:15px;
+	border:1px solid #FF0000;
+}
+
+.span-7{
+	color:#999999;
+	font-size:18px;
+}
+
+.span-8{
+	color:#999999;
+	font-size:14px;
+	margin-left:5px;
+}
+
+.span-9{
+	color:#999999;
+	font-size:14px;
+}
+
+.span-10{
+	color:#33CCCC;	
+}
+
+.span-11{
+	color:#666666;
+}
+.span-float{
+	margin-left:10px;
+	float:right;
+}
+
+.span-love-1{
+	color:#FF0000;
+	font-size:18px;
+}
+
+.span-love-2{
+	color:#666666;
+	font-size:15px;
+}
+
+.span-love-3{
+	color:#666666;
+	font-size:18px;
+}
+
+.span-love-4{
+	color:#FF0000;
+	font-size:14px;
+}
+
+.span-love-5{
+	color:#666666;
+	font-size:14px;
+}
+
+.span-star{
+	color:#666666;
+	font-size:20px;
+}
+
+.span-start-half{
+	color:#FFCC00;
+}
+
+.span-start-whole{
+	color:#FF6600;
+}
+
+.text-1{
+	color:#444444;
+	font-size:16px;
+}
+
+.comment-text-1{
+	color:#FFCC00;	
+	font-size:23px;
+	line-height:22px;
+}
+
+
+.span-badge{
+	background-color:#FFCC00;
+}
+
+
+.border-none{
+	border-width:0px;
+}
+/*----------------------detail.html-------------------------*/
+.comment-start-2{
+	margin-bottom:5px;
+}
+
+.element-left{
+	float:left;
+}
+
+.element-right{
+	float:right;
+}
+/*-------------------新闻-----------------------*/
+
+.news-body{
+	background-color:#fdfbfe;
+}
+
+.context-detail{
+	width:60%;
+	margin-left:20%;
+}
+
+.span-right{
+	float:right;
+	margin-left:20px;
+}
+
+.span-right-2{
+	float:right;
+}
+
+.span-text-1{
+	color:#CCCCCC;
+	font-size:12;
+}
+
+.p-text-1{
+	color:#666666;
+}
+
+.news-item{
+	padding-top:10px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:10px;
+	background-color:#FFFFFF;
+	margin-top:5px;
+	border:1px solid #e9e9ea;
+	border-radius:3px;
+}
+
+
+.recommend-list-margin{
+	margin-top:10px;
+}
+
+.news-list-padding{
+	padding-top:1px;
+	padding-left:5px;
+	padding-right:5px;
+	padding-bottom:1px;
+}
+
+
+
+
+/*--------index.css------------*/
+.title-back{
+	background-color:#009999;
+}
+
+.span-type{
+	line-height:15px;
+	font-size:14px;	
+	padding:3px;
+	white-space: nowrap;
+	color:#999999;
+}
+
+/*-------------comment.html-----------------*/
+
+.span-tag{
+	line-height:16px;
+	font-size:13px;
+	border:1px solid #CCCCCC;
+	border-radius:5px;
+	padding:3px;
+	white-space: nowrap;	
+	float:left;
+	margin-right:5px;
+	margin-top:5px;
+	
+}
+
+.span-tag a{
+	color:#999999;
+}
+
+.span-tag:hover{
+	background-color:#EEEEEE;
+}
+
+.panel-margin{
+	margin-bottom:0px;
+}
+
+.reply{
+	border-left:3px solid #DDDDDD;
+}
+
+.commit-reply{
+	display:none;
+}
+
+.height-10{
+	height:10px;
+}
+
+.height-3{
+	height:3px;
+}
+
+.head-img{
+border-radius:40px;
+}

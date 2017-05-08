@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=0.8, maximum-scale=1">
+<title>外星猫动漫</title>
+
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../resourse/css/main.css" />
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css"> -->
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+
+<div class="row" style="margin-top:100px;" ng-app="loginApp" ng-controller="loginCtrl">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-3">
+		<div class="row">
+
+			<div class="col-xs-12 col-md-5 col-md-offset-2">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="email" class="form-control"
+							ng-model="email" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+
+					<div class="form-group">
+						<button type="button" class="btn btn-success btn-block"
+							ng-click="login()">登陆</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="../resourse/js/angular.min.js"></script>
+<script src="../resourse/js/angular-route.js"></script>
+<script src="../resourse/js/jQuery.md5.js"></script>
+<script type="text/javascript">
+
+var loginApp = angular.module('loginApp', []);
+loginApp.controller('loginCtrl', function($scope, $http) {
+	$scope.login = function(){
+		
+		var email = $("input[name=email]").val();
+		var password = $.md5($("input[name=password]").val());
+		
+		$.ajax({
+			url : "../user/login",
+			type:"post",
+			data : {
+				email : email,
+				password:password
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.code == "000000") {	
+					if(data.data.role==0){
+						window.location.href="../admin/admin.html";
+					}else{
+						alert("没有管理员权限");
+					}
+					
+				} else {
+					alert(data.message);
+				}
+			},
+			error:function(data){
+				alert("系统异常");
+			}
+		});
+	}		
+
+});
+</script>

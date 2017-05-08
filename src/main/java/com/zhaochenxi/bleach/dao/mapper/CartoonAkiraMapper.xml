@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.ICartoonAkiraDao">
+	
+	<!-- 自定义返回结果集 -->
+	<resultMap id="CartoonAkiraMap" type="com.zhaochenxi.bleach.model.CartoonAkira" />
+
+	<insert id="save" parameterType="CartoonAkira">
+		INSERT INTO cartoonAkira (cartoonId, akiraName)  VALUES (#{cartoonId}, #{akiraName});		
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		delete from cartoonAkira where  cartoonId=#{cartoonId}	
+	</delete>
+	
+	<insert id="saveBatch" parameterType="java.util.List">
+		 INSERT INTO cartoonAkira (cartoonId, akiraName)  VALUES 
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.cartoonId}, #{item.akiraName})
+		</foreach>
+				
+	</insert>
+
+</mapper>    

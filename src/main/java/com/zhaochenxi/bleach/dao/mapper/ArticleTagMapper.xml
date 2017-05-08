@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IArticleTagDao">
+	
+	<insert id="save" parameterType="ArticleTag">
+		<![CDATA[INSERT INTO articleTagRelation (articleId, tagId)  VALUES (#{articleId}, #{tagId})]]>
+	</insert>
+	
+	
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO articleTagRelation (articleId, tagId)  VALUES  
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.articleId}, #{item.tagId})
+	</foreach>				
+	</insert>
+	
+	<delete id="deleteByTagId">
+        delete from commentTagRelation where articleId=#{articleId} and tagId in 
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    
+	<delete id="deleteByArticleId" parameterType="java.lang.String">
+	<![CDATA[delete from articleTagRelation where articleId=#{articleId}]]>
+	</delete>
+	
+</mapper>    

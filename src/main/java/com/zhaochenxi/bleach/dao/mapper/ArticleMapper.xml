@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IArticleDao">
+	
+	<resultMap id="articleMap" type="com.zhaochenxi.bleach.model.Article">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="introduction" column="introduction" />
+		<result property="context" column="context" />
+		<result property="userId" column="userId" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+		<result property="readCount" column="readCount" />
+		<result property="commentCount" column="commentCount" />
+		<result property="status" column="status" />
+		<result property="userName" column="userName" />
+		
+		<association property="user" javaType="com.zhaochenxi.bleach.dto.UserDto">   
+            <id property="userId" column="userId"/>
+            <result property="name" column="name"/>
+            <result property="headImage" column="headImage"/>            
+        </association>
+        
+		<collection property="tagList" ofType="Tag"
+			column="tagId">
+			<id property="id" column="tagId" />
+			<result property="tagName" column="tagName"/>
+			<result property="type" column="type"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap id="articleUserMap" type="com.zhaochenxi.bleach.model.Article">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="introduction" column="introduction" />
+		<result property="context" column="context" />
+		<result property="userId" column="userId" />
+		<result property="createTime" column="createTime" />
+		<result property="updateTime" column="updateTime" />
+		<result property="readCount" column="readCount" />
+		<result property="commentCount" column="commentCount" />
+		<result property="status" column="status" />
+		
+		<association property="user" javaType="User">   
+            <id property="id" column="userId"/>
+            <result property="userName" column="name"/>
+            <result property="headImage" column="headImage"/>            
+        </association>
+        
+	</resultMap>
+	
+	<insert id="save" parameterType="Article">
+		<![CDATA[INSERT INTO article (id,title,introduction,context,userId,createTime,updateTime,readCount, commentCount, status,keyword,userName) 
+		VALUES (#{id}, #{title}, #{introduction},#{context},#{userId},#{createTime},#{updateTime},#{readCount},#{commentCount},#{status},#{keyword},#{userName})]]>
+	</insert>
+	
+	<update id="update" parameterType="Article">
+		<![CDATA[update article set title=#{title},introduction=#{introduction},context=#{context},keyword=#{keyword},status=#{status},updateTime=#{updateTime} where id=#{id}]]>
+	</update>
+	
+	
+	<update id="updateCommentCount" parameterType="java.lang.String">
+		<![CDATA[update article set commentCount=commentCount+1 where id=#{id}]]>
+	</update>
+	
+	<update id="decreaseCommentCount" parameterType="java.lang.String">
+		<![CDATA[update article set commentCount=commentCount-1 where id=#{id}]]>
+	</update>
+	
+	<update id="delete">
+		<![CDATA[update article set status=2,updateTime=#{1} where id=#{0}]]>
+	</update>
+	
+	<update id="updateReadCount" parameterType="java.lang.String">
+		<![CDATA[update article set readCount=readCount+1 where id=#{id}]]>
+	</update>
+	
+	<update id="setReadCount">
+		<![CDATA[update article set readCount=#{1} where id=#{0}]]>
+	</update>
+
+	<select id="queryById" parameterType="java.lang.String" resultMap="articleMap">
+	<![CDATA[select c.*,t.id as tagId,t.tagName,t.type,u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on u.id=c.userId where c.id=#{id}]]>
+	</select> 
+	
+	
+	<select id="selectList"  resultMap="articleMap">
+	<![CDATA[select c.id,c.title,c.introduction,c.readCount,c.updateTime,c.userName,t.id as tagId,t.tagName,t.type,u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on c.userId=u.id where c.status=#{2} order by updateTime desc limit #{0},#{1}]]>
+	</select> 
+	
+	<select id="selectByTag"  resultMap="articleMap">
+	<![CDATA[select c.id,c.title,c.introduction,c.readCount,c.updateTime,c.userName,t.id as tagId,t.tagName,t.type ,u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on u.id=c.userId where t.id=#{2} and c.status=#{3} order by readCount desc limit #{0},#{1}]]>
+	</select> 
+	
+	<select id="selectByKeyword"  resultMap="articleMap">
+	<![CDATA[select c.id,c.title,c.introduction,c.readCount,c.updateTime,c.userName,t.id as tagId,t.tagName,t.type, u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on u.id=c.userId where c.keyword like concat(concat('%',#{2}),'%') and c.status=#{3} order by readCount desc limit #{0},#{1}]]>
+	</select> 
+	
+	<select id="selectListByUserId"  resultMap="articleMap">
+	<![CDATA[select c.id,c.title,c.introduction,c.readCount,c.updateTime,c.userName,t.id as tagId,t.tagName,t.type, u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on u.id=c.userId where c.status=#{2} and c.userId=#{3} order by updateTime desc limit #{0},#{1}]]>
+	</select> 
+	
+	
+	<select id="selectByKeywordAndUserId"  resultMap="articleMap">
+	<![CDATA[select c.id,c.title,c.introduction,c.readCount,c.updateTime,c.userName,t.id as tagId,t.tagName,t.type,u.id as userId,u.name,u.headImage from article c left join articleTagRelation ct on c.id=ct.articleId left join tag t on ct.tagId = t.id left join user u on u.id=c.userId where c.keyword like concat(concat('%',#{2}),'%') and c.status=#{3} and c.userId=#{4} order by readCount desc limit #{0},#{1}]]>
+	</select>
+		
+	<select id="selectListByReadCount"  resultType="Article">
+	<![CDATA[select id,title,readCount from article  where status=1 order by readCount desc limit #{0},#{1}]]>
+	</select>
+</mapper>    

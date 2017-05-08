@@ -1,0 +1,81 @@
+.sign-up{
+	background:url(../img/sign-background.jpg); 
+    background-position:center; 
+    background-repeat:no-repeat; 
+}
+
+.sign-in{
+	background:url(../img/sign-background.jpg); 
+    background-position:center; 
+    background-repeat:no-repeat;
+}
+
+.title{
+	font-size:30px;
+	color:white;
+	margin-top:10px;
+}
+
+.register{
+	margin-top:10px;
+	float:right;
+}
+
+.sign-title{
+	color:white;
+	text-align:center;
+}
+
+.card{
+	border-radius:3px;
+	background:white;
+}
+
+.card-1{
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.card-2{
+	border-top:1px solid #DDDDDD;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.card-3{
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.card-4{
+	border-top:1px solid #DDDDDD;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.div-line{
+	
+}
+
+.input-border{
+	border:none;
+	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input:-webkit-autofill {
+   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+input:focus { outline: none; }
+
+
+.footer{
+	padding-top:20px;
+	width:100%;
+	height:100px;
+	position:absolute;
+	bottom:0px;
+}
+
+.span-footer{
+	color:#888888;
+	text-align:center;
+}

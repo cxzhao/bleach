@@ -1,0 +1,76 @@
+<div id="main-context" class="main container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="margin-top:10px">
+
+			<div class="news-item col-xs-12 col-sm-12 col-md-12" ng-repeat="rec in list">
+
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<h4 class="text-h4-1">{{rec.cartoonName}}</h4>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<p>{{rec.reason}}</p>
+					<p>
+						<span class="span-text-1 span-left">{{rec.userName}}推荐</span> <span
+							class="span-text-1 span-left">{{rec.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span> <span
+							class="span-text-1 span-right"><a href="javascript:void(0)" ng-click="agree(rec)"><span class="span-love-4 glyphicon glyphicon-heart"></span><span>({{rec.agree}})</span></a></span>
+					</p>
+				</div>
+			</div>
+
+
+			<div class="col-xs-12 col-md-12 div-padding-left div-padding-right">
+				<form role="form">
+					<br>
+					<div class="form-group">
+						<input type="text"
+							class="form-control" name="cartoonName" placeholder="推荐的动漫名：海贼王"> 
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1"></label>
+						<textarea class="form-control" name="reason" id="reason"
+							placeholder="推荐理由:反正就是好看，就要推荐给你们......"></textarea>
+					</div>
+					<div class="form-group">
+						<div>
+							<button type="button" class="btn btn-success" ng-click="add()">提交</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-md-offset-0">
+				<nav style="text-align: center">
+					<ul class="pagination pagination-lg">
+						<li><a href="javascript:void(0)" ng-click="prep()">&laquo;</a></li>
+						<li ng-repeat="page in pageList"><a href="javascript:void(0)" ng-click="currentPage(page)">{{page}}</a></li>
+						<li><a href="javascript:void(0)" ng-click="last()">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+
+
+		</div>
+
+
+
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			
+
+		</div>
+
+
+
+	</div>
+
+
+
+</div>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

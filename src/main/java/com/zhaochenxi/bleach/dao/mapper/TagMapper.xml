@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.ITagDao">
+
+	<!-- 自定义返回结果集 -->
+	<resultMap id="TagMap" type="com.zhaochenxi.bleach.model.Tag" />
+
+	<insert id="save" parameterType="tag">
+		<![CDATA[insert into tag(id,tagName,type) values (#{id},#{tagName},#{type})]]>
+	</insert>
+
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO tag (id, tagName,type)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.id}, #{item.tagName}, #{item.type})
+		</foreach>
+	</insert>
+	
+	<update id="updateCount" parameterType="java.lang.String">
+		update tag set count=count+1 where id=#{id};
+	</update>
+	
+	<update id="updateCountBatch">	
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+				UPDATE tag   
+				<set>
+				  count=count+1
+				</set>
+				WHERE id=#{item}
+		 </foreach>		 
+	</update>
+
+	<select id="queryOrderDescByType" resultType="Tag">
+		<![CDATA[select * from tag where type=#{0} order by count desc limit #{1},#{2}]]>
+	</select>
+	
+	<select id="queryTagByType" parameterType="java.lang.Integer"
+		resultType="Tag">
+		<![CDATA[select * from tag where type=#{type}]]>
+	</select>
+	
+	<select id="queryById" parameterType="java.lang.String"
+		resultType="Tag">
+		<![CDATA[select * from tag where id=#{id}]]>
+	</select>
+
+	<select id="queryByName" parameterType="java.lang.String"
+		resultType="Tag">
+		<![CDATA[select * from tag where tagName=#{tagName}]]>
+	</select>
+	
+	<select id="queryByTypeList" resultType="Tag">
+		select * from tag where type=#{type} and tagName in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+	</select>
+
+</mapper>    

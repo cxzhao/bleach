@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>外星猫动漫</title>
+
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../resourse/css/main.css" />
+<link rel="stylesheet" href="../resourse/raty/jquery.raty.css">
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css"> -->
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://jq22.qiniudn.com/masonry-docs.min.js"></script>
+<script src="../resourse/js/masonry.pkgd.min.js"></script>
+<script src="../resourse/js/imagesloaded.js"></script>
+<script src="../resourse/raty/jquery.raty.js"></script>
+
+</head>
+<body>
+	<div id="top">
+		<nav class="navbar-fixed-top navbar-inverse navbar-default"
+			style="background-color: #006666" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#example-navbar-collapse">
+						<span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">外星猫</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="example-navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">动漫推荐<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">热血连载</a></li>
+								<li class="divider"></li>
+								<li><a href="#">新番动漫</a></li>
+								<li class="divider"></li>
+								<li><a href="#">国漫推荐</a></li>
+							</ul></li>
+						
+						<li><a href="comment.html">外星热评</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">外星消息<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="news.html">最新情报</a></li>
+								<li class="divider"></li>
+								<li><a href="news.html">动漫资讯</a></li>
+							</ul></li>
+
+						<li><a href="recommend.html">网友推荐</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown">关于小猫<span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">登陆</a></li>
+								<li class="divider"></li>
+								<li><a href="#">登出</a></li>
+								<li class="divider"></li>
+								<li><a href="#">注册</a></li>
+								<li class="divider"></li>
+								<li><a href="#">关于小猫</a></li>
+							</ul></li>
+					</ul>
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="海贼王">
+							<span class="input-group-btn">
+								<button class="btn btn-danger" type="button">搜索</button>
+							</span>
+						</div>
+					</form>
+
+
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</div>
+
+	<div id="main-context" class="main container-fluid"
+		style="margin-top: 30px; min-height: 900px;">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<div class="context-detail">
+					<div class="col-xs-12 col-sm-12 col-md-12 recommend-list-margin">
+						<h2 class="text-h3-1">外星猫用户协议</h2>
+					</div>
+
+
+					<div class="panel-body">网易 (NASDAQ:
+						NTES)是中国领先的互联网公司，利用最先进的互联网技术，加强人与人之间信息的交流和共享，实现“网聚人的力量”。创始人兼CEO是丁磊。
+						在开发互联网应用、服务及其它技术方面，网易始终保持业界的领先地位，并在中国互联网行业内率先推出了包括中文全文检索、全中文大容量免费邮件系统、无限容量免费网络相册、免费电子贺卡站、网上虚拟社区、网上拍卖平台、24小时客户服务中心在内的业内领先产品或服务，还通过自主研发推出了一款率先取得白金地位的国产网络游戏。[1]
+						网易公司推出了门户网站、在线游戏、电子邮箱、在线教育、电子商务、在线音乐、网易bobo等多种服务</div>
+				</div>
+
+			</div>
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-8"></div>
+
+		</div>
+
+		<div class="col-md-1"></div>
+	</div>
+
+
+	</div>
+
+
+
+	<div class="footer"></div>
+
+
+
+	<script type="text/javascript">
+		$('#comment-start-1').raty({
+			path : '../resourse/img',
+			starOff : 'star-off.png',
+			starOn : 'star-on.png',
+			starHalf : 'star-half.png'
+		});
+
+		$('#comment-start-2').raty({
+			path : '../resourse/img',
+			starOff : 'star-off.png',
+			starOn : 'star-on.png',
+			starHalf : 'star-half.png'
+		});
+
+		/*瀑布流布局代码*/
+		var $container = $('.row');
+		$container.imagesLoaded(function() {
+			$container.masonry({
+				columnWidth : '.item',
+				itemSelector : '.item'
+			});
+		});
+
+		$(function() {
+			$('.news-item').hover(function() {
+				$(this).css("cursor", "pointer");
+			}, function() {
+
+			});
+		});
+	</script>
+</body>
+</html>

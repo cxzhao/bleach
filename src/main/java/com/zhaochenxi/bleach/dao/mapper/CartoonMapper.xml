@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.ICartoonDao">
+
+	<!-- 自定义返回结果集 -->
+	<resultMap id="CartoonMap" type="com.zhaochenxi.bleach.model.Cartoon" />
+	<resultMap id="cartoonRoleMap" type="com.zhaochenxi.bleach.model.CartoonRole" />
+	<resultMap id="cartoonAkiraMap" type="com.zhaochenxi.bleach.model.CartoonAkira" />
+	<resultMap id="cartoonDirectorMap" type="com.zhaochenxi.bleach.model.CartoonDirector" />
+
+	<resultMap id="cartoonRelationMap" type="com.zhaochenxi.bleach.model.Cartoon">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="englishName" column="englishName" />
+		<result property="introduction" column="introduction" />
+		<result property="score" column="score" />
+		<result property="status" column="status" />
+		<result property="country" column="country" />
+		<result property="language" column="language" />
+		<result property="commentCount" column="commentCount" />
+		<result property="themeImage" column="themeImage" />
+		<result property="years" column="years" />
+		<result property="createTime" column="createTime" />
+		<result property="shortIntro" column="shortIntro" />
+		<result property="loveCount" column="loveCount" />
+		<result property="keyword" column="keyword" />
+		<result property="isEnd" column="isEnd" />
+		<result property="author" column="author" />
+		<collection property="roleList" ofType="CartoonRole"
+			column="cartoonId">
+			<result property="cartoonId" column="cartoonId" />
+			<result property="roleName" column="roleName" />
+		</collection>
+		<collection property="akiraList" ofType="CartoonAkira"
+			column="cartoonId">
+			<result property="cartoonId" column="cartoonId" />
+			<result property="akiraName" column="akiraName" />
+
+		</collection>
+
+		<collection property="directorList" ofType="CartoonDirector"
+			column="cartoonId">
+			<result property="cartoonId" column="cartoonId" />
+			<result property="directorName" column="directorName" />
+		</collection>
+	</resultMap>
+
+	<insert id="save" parameterType="Cartoon">
+		<![CDATA[INSERT INTO cartoon (id, name, englishName, score, introduction, status, country, language, commentCount, themeImage, years, createTime, loveCount, shortIntro, keyword,isEnd,author)  VALUES 
+		(#{id}, #{name}, #{englishName},#{score},#{introduction},#{status}, #{country},#{language},#{commentCount},#{themeImage},#{years},#{createTime},#{loveCount},#{shortIntro},#{keyword},#{isEnd},#{author})]]>
+	</insert>
+
+	<update id="update" parameterType="Cartoon">
+		<![CDATA[update cartoon set name=#{name}, englishName=#{englishName},introduction=#{introduction},status=#{status}, country=#{country},language=#{language},years=#{years},createTime=#{createTime},shortIntro=#{shortIntro},keyword=#{keyword},isEnd=#{isEnd},author=#{author} where id=#{id}]]>
+	</update>
+	
+	<update id="updateLove">
+		<![CDATA[update cartoon set loveCount=#{0} where id=#{1}]]>
+	</update>
+	
+	<update id="updateCommentCount">
+		<![CDATA[update cartoon set commentCount=#{0} where id=#{1}]]>
+	</update>
+	
+	<update id="updateComment" parameterType="java.lang.String">
+		<![CDATA[update cartoon set commentCount=commentCount+1 where id=#{cartoonId}]]>
+	</update>
+	
+	<update id="decreaseComment" parameterType="java.lang.String">
+		<![CDATA[update cartoon set commentCount=commentCount-1 where id=#{cartoonId}]]>
+	</update>
+	
+	<update id="updateThemeImage">
+		<![CDATA[update cartoon set themeImage=#{0} where id=#{1}]]>
+	</update>
+	
+	
+	<update id="updateScore">
+		<![CDATA[update cartoon set score=#{0} where id=#{1}]]>
+	</update>
+	
+	<delete id="delete" parameterType="Cartoon">
+		<![CDATA[delete from cartoon where id=#{id}]]>
+	</delete>
+
+	<select id="queryById" parameterType="java.lang.String"
+		resultType="Cartoon">
+		<![CDATA[select * from cartoon where id=#{id}]]>
+	</select>
+	
+	<select id="queryLoveById" parameterType="java.lang.String"
+		resultType="Cartoon">
+		<![CDATA[select loveCount from cartoon where id=#{id}]]>
+	</select>
+	
+	<select id="queryScoreById" parameterType="java.lang.String"
+		resultType="Cartoon">
+		<![CDATA[select score from cartoon where id=#{id}]]>
+	</select>
+	
+	<select id="queryCommentCountById" parameterType="java.lang.String"
+		resultType="Cartoon">
+		<![CDATA[select loveCount from cartoon where id=#{id}]]>
+	</select>
+	
+	
+
+	<select id="queryDetailById" parameterType="java.lang.String"
+		resultMap="cartoonRelationMap">
+		<![CDATA[select c.*,a.cartoonId,r.cartoonId,d.cartoonId,a.akiraName,r.roleName,d.directorName from cartoon c left join cartoonAkira a on c.id = a.cartoonId left join cartoonRole r on c.id = r.cartoonId left join cartoonDirector d on c.id=d.cartoonId where c.id=#{id}]]>
+	</select>
+
+	<select id="queryPageList" resultType="Cartoon">
+	<![CDATA[select id,name,score,shortIntro,themeImage,commentCount,loveCount from cartoon order by score desc limit #{0},#{1}]]>
+	</select>
+	
+	<select id="queryByKeyword" resultType="Cartoon">
+	<![CDATA[select id,name,themeImage,score,shortIntro,commentCount,loveCount from cartoon where keyword like concat(concat('%',#{0}),'%') order by score desc limit #{1},#{2}]]>
+	</select>
+			
+	<select id="queryByType" resultType="Cartoon">
+		select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c left join cartoonTypeRelation t on c.id=t.cartoonId where t.typeId in
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		 order by score desc limit #{start},#{size}
+	</select>
+	
+	<select id="queryByTypeAndArea" resultType="Cartoon">
+		select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c left join cartoonTypeRelation t on c.id=t.cartoonId where t.typeId=#{typeId} and c.country in 
+		<foreach collection="arealist" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		 order by c.score desc limit #{start},#{size}
+	</select>
+	
+	<select id="queryByArea" resultType="Cartoon">
+		select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c where c.country in 
+		<foreach collection="arealist" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		 order by c.score desc limit #{start},#{size}
+	</select>
+	
+	<select id="queryByIsEnd" resultType="Cartoon">
+		<![CDATA[select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c where c.isEnd=#{0} order by c.score desc limit #{1},#{2}]]>
+	</select>
+	
+	<select id="queryByAreaAndIsEnd" resultType="Cartoon">
+		select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c where c.isEnd=#{isEnd} and c.country in 
+		<foreach collection="arealist" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		 order by c.score desc limit #{start},#{size}
+	</select>
+	
+	<select id="queryByTypeAndIsEnd" resultType="Cartoon">
+		<![CDATA[select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c left join cartoonTypeRelation t on c.id=t.cartoonId where t.typeId=#{0} and c.isEnd=#{1} order by c.score desc limit #{2},#{3}]]>
+	</select>
+	
+	
+	<select id="queryByTypeAndIsEndAndArea" resultType="Cartoon">
+		select DISTINCT c.id,c.name,c.shortIntro,c.themeImage,c.score,c.commentCount,c.loveCount from cartoon c left join cartoonTypeRelation t on c.id=t.cartoonId where t.typeId=#{typeId} and c.isEnd=#{isEnd} and c.country in 
+		<foreach collection="arealist" item="item" index="index" separator="," open="(" close=")">
+		#{item}
+		</foreach>
+		 order by c.score desc limit #{start},#{size}
+	</select>
+	
+</mapper>    

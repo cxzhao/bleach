@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org/DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<configuration>
+	<settings>
+		<!-- 打印查询语句 -->
+		<setting name="logImpl" value="LOG4J" />
+	</settings>
+	<!-- 类型兼容处理器 -->
+	<typeHandlers>
+	    <!-- 枚举类型处理器 -->
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="com.zhaochenxi.bleach.enums.CartoonEnum"/>
+	</typeHandlers>
+	<mappers>
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/UserMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonTypeMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonTypeRelationMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonRoleMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonDirectorMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/CartoonAkiraMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/RecommendMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/OperateRecordMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/TagMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/ArticleTagMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/ArticleMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/NewsMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/NewsTagMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/IEtCommentReplyMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/EtCommentMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/VerificationCodeMapper.xml" />
+		<mapper resource="com/zhaochenxi/bleach/dao/mapper/MessageMapper.xml" />
+	</mappers>
+</configuration>

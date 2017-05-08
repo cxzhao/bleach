@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IOperateRecordDao">
+	
+	<insert id="save" parameterType="OperateRecord">
+		<![CDATA[insert into operateRecord ( id, ip, userId,dataId,type, createTime) values (#{id}, #{ip},#{userId},#{dataId},#{type},#{createTime});]]>
+	</insert>
+	
+    <select id="queryByUserIdAndType" resultType="OperateRecord">
+		<![CDATA[select * from operateRecord where userId=#{0} and type=#{1} order by createTime desc limit 1]]>
+	</select>
+	
+	<select id="queryByUserIdDataIdAndType" resultType="OperateRecord">
+		<![CDATA[select * from operateRecord where userId=#{0} and type=#{1} and dataId=#{2} order by createTime desc limit 1]]>
+	</select>
+	
+</mapper>    

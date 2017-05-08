@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IEtCommentDao">
+
+	<resultMap id="etCommentMap" type="com.zhaochenxi.bleach.model.EtComment">
+		<id property="id" column="id" />
+		<result property="objectId" column="objectId" />
+		<result property="userId" column="userId" />
+		<result property="name" column="name" />
+		<result property="context" column="context" />
+		<result property="score" column="score" />
+		<result property="createTime" column="createTime" />
+		<result property="agree" column="agree" />
+		<result property="reply" column="reply" />
+		<result property="type" column="type" />
+		
+		<association property="user" javaType="com.zhaochenxi.bleach.dto.UserDto">   
+            <id property="userId" column="userId"/>
+            <result property="name" column="name"/>
+            <result property="headImage" column="headImage"/>            
+        </association>
+        
+		<collection property="replyList" ofType="EtCommentReply"
+			column="objId">
+			<id property="id" column="replyId" />
+			<result property="objId" column="objId" />
+			<result property="objUserName" column="objUserName" />
+			<result property="objUserId" column="objUserId" />
+			<result property="userId" column="replyUserId" />
+			<result property="userName" column="replyUserName" />
+			<result property="context" column="replyContext" />
+			<result property="agree" column="replyAgree" />
+			<result property="type" column="replyType" />
+			<result property="createTime" column="replyCreateTime" />
+		</collection>
+		
+	</resultMap>
+
+	<insert id="save" parameterType="EtComment">
+		<![CDATA[INSERT INTO etcomment (id, objectId, context, userId, score,createTime, agree, reply, type,name) VALUES (#{id},#{objectId}, #{context},#{userId}, #{score},#{createTime}, #{agree}, #{reply}, #{type},#{name})]]>
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[delete from etcomment where id=#{0} and userId=#{1}]]>
+	</delete>
+	
+	<update id="updateReply" parameterType="java.lang.String">
+		<![CDATA[update etcomment set reply = reply+1 where id=#{id}]]>
+	</update>
+	
+	<update id="decreaseReply" parameterType="java.lang.String">
+		<![CDATA[update etcomment set reply = reply-1 where id=#{id}]]>
+	</update>
+	
+	
+	<update id="updateAgree" parameterType="java.lang.String">
+		<![CDATA[update etcomment set agree = agree+1 where id=#{id}]]>
+	</update>
+	
+	<select id="queryScore" resultType="com.zhaochenxi.bleach.dto.CommentScoreDto">
+		<![CDATA[select count(*) as count,sum(score) from etcomment where type=0]]>
+	</select>
+	
+	<select id="queryCommentById" parameterType="java.lang.String" resultType="EtComment">
+		<![CDATA[select id,objectId,type,reply from etcomment where id=#{id}]]>
+	</select>
+	
+	<select id="queryComment" resultMap="etCommentMap">
+		<![CDATA[select c.*,r.id as replyId,r.objId,r.objUserName,r.objUserId,r.userId as replyUserId,r.userName as replyUserName,r.context as replyContext,r.agree as replyAgree,r.type as replyType,r.createTime as replyCreateTime,u.name,u.headImage 
+		  from etcomment c left join etCommentReply r on c.id = r.objId left join user u on c.userId = u.id where c.objectId=#{2} order by c.createTime desc,r.createTime desc limit #{0},#{1}]]>
+	</select>
+
+	<select id="queryCartoonComment" resultMap="etCommentMap">
+		<![CDATA[select c.*,r.id as replyId,r.objId,r.objUserName,r.objUserId,r.userId as replyUserId,r.userName as replyUserName,r.context as replyContext,r.agree as replyAgree,r.type as replyType,r.createTime as replyCreateTime, u.name,u.headImage  
+		  from etcomment c left join etCommentReply r on c.id = r.objId left join user u on c.userId = u.id where c.objectId=#{2} and c.context is not null order by c.createTime desc,r.createTime desc limit #{0},#{1}]]>
+	</select>
+
+	
+</mapper>    

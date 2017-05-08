@@ -1,0 +1,204 @@
+<div id="main-context" class="main container-fluid"
+	style="margin-top: 20px;">
+	<div id="div-search-result">
+		<div class="row" style="margin: -1px;">
+			<div
+				class="col-xs-12 col-sm-12 col-md-3 col-md-offset-1 col-sm-offset-0 col-xs-offset-0 visible-md-block visible-lg-block">
+				<div class="update">
+					<div class="navbar-example">
+						<div class="list-group">
+							<a href="et/main.html#/news?type=0" class="list-group-item">
+								<h4 class="text-h4">热门情报</h4>
+							</a> <a href="et/main.html#/newsdetail?id={{news.id}}" class="list-group-item"
+								ng-repeat="news in newsList">
+								<div class="row">
+									<div class="col-xs-4 col-sm-4 col-md-4 news-list-padding">
+										<img class="img-responsive" src="{{news.newsImage}}"
+											alt="图片被外星人吃掉了！">
+									</div>
+									<div class="col-xs-8 col-sm-8 col-md-8 news-list-padding">
+										<h5 class="text-h5">{{news.title}}</h5>
+										<p class="list-group-item-text">
+											<span class="span-5">{{news.createTime |
+												date:'yyyy-MM-dd HH:mm:ss'}}</span>
+										</p>
+									</div>
+								</div>
+							</a>
+						</div>
+
+						<div class="list-group">
+							<a href="et/main.html#/news?type=1" class="list-group-item">
+								<h4 class="text-h4">热门资讯</h4>
+							</a> <a href="et/main.html#/newsdetail?id={{news.id}}" class="list-group-item"
+								ng-repeat="news in infoList">
+								<div class="row">
+									<div class="col-xs-4 col-sm-4 col-md-4 news-list-padding">
+										<img class="img-responsive" src="{{news.newsImage}}"
+											alt="图片被外星人吃掉了！">
+									</div>
+									<div class="col-xs-8 col-sm-8 col-md-8 news-list-padding">
+										<h5 class="text-h5">{{news.title}}</h5>
+										<p class="list-group-item-text">
+											<span class="span-5">{{news.createTime |
+												date:'yyyy-MM-dd HH:mm:ss'}}</span>
+										</p>
+									</div>
+								</div>
+							</a>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<div class="div-padding-left-right-3 col-xs-12 col-sm-12 col-md-7">
+				<div class="panel panel-default panel-margin">
+
+					<ul class="list-group">
+					   <li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12">
+								<div class="checkbox" style="margin:0px;">
+										<span><span class="span-type">地区：</span><label class="label-1"><input name="area" value="japan" type="checkbox">日本</label>
+										<label class="label-1"> <input name="area" value="china" type="checkbox">中国</label></span>	
+										<span> <span class="span-type">&nbsp&nbsp&nbsp&nbsp状态：</span><label class="label-1"><input name="isEnd" value="0" type="checkbox">更新中</label>
+										<label class="label-1"> <input name="isEnd" value="1" type="checkbox">已完结</label><label><a href="javascript:void(0)" ng-click="queryByType(0)">查询</a></label></span>							
+								</div>
+								</div>
+								
+							</div>
+						</li>
+						<li class="list-group-item"><span class="span-type">类型：</span><span
+							class="span-type"><a href="javascript:void(0)"
+								ng-click="queryByType(0)">全部</a></span> <span
+							ng-repeat="type in typeList" class="span-type"><a
+								href="javascript:void(0)" ng-click="queryByType(type)">{{type.typeName}}</a></span></li>
+						
+
+					</ul>
+				</div>
+			</div>
+
+			<div class="result col-xs-12 col-sm-12 col-md-7"
+				style="padding: 0px;">
+				<div  class="result-item col-xs-6 col-sm-6 col-md-4"
+					ng-repeat="cartoon in cartoonList"  on-finish-render-filters>
+					<div class="thumbnail">
+						<div>
+							<img class="img-responsive cartoon-img"
+								src="{{cartoon.themeImage}}" alt="图片被外星人吃掉了！">
+						</div>
+
+						<div class="caption">
+							<h4>
+								<a href="et/main.html#/detail?id={{cartoon.id}}">{{cartoon.name}}</a>
+							</h4>
+							<p>{{cartoon.shortIntro}}</p>
+							<div>
+								<div style="line-height: 20px">
+									<a href="javascript:void(0)" ng-click="showComment(cartoon)"><span
+										class="span-1 glyphicon glyphicon-comment"></span></a> <span>({{cartoon.commentCount}})<span>
+											<a href="javascript:void(0)" ng-click="love(cartoon)"><span
+												class="span-love-1 glyphicon glyphicon-heart"></span></a> <span>({{cartoon.loveCount}})<span><span
+													class="badge span-6">{{cartoon.score | number:1}}分</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+		<div
+			class="col-xs-12 col-sm-8 col-md-8 col-md-offset-3 col-sm-offset-2 col-xs-offset-0">
+			<nav style="text-align: center">
+				<ul class="pagination pagination-lg">
+					<li><a href="javascript:void(0)" ng-click="prep()">&laquo;</a></li>
+					<li ng-repeat="page in pageList"><a href="javascript:void(0)"
+						ng-click="page(page)">{{page}}</a></li>
+					<li><a href="javascript:void(0)" ng-click="last()">&raquo;</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	</div>
+</div>
+
+
+
+
+
+
+<script type="text/ng-template" id="myModelContent.html">
+            <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">这部动漫是这样的：</h4>
+			</div>
+			<div class="row modal-body">
+				<div 
+					class="col-xs-12 col-md-12">
+					<a href="javascript:void(0)" ng-click="clickStart(1)" ng-mouseover="overStart(1)"><span id="start-1" class="span-star glyphicon glyphicon-star" ></span></a>
+					<a href="javascript:void(0)" ng-click="clickStart(2)" ng-mouseover="overStart(2)"><span id="start-2" class="span-star glyphicon glyphicon-star" ></span></a>
+					<a href="javascript:void(0)" ng-click="clickStart(3)" ng-mouseover="overStart(3)"><span id="start-3" class="span-star glyphicon glyphicon-star" ></span></a>
+					<a href="javascript:void(0)" ng-click="clickStart(4)" ng-mouseover="overStart(4)"><span id="start-4" class="span-star glyphicon glyphicon-star" ></span></a>
+					<a href="javascript:void(0)" ng-click="clickStart(5)" ng-mouseover="overStart(5)"><span id="start-5" class="span-star glyphicon glyphicon-star" ></span></a>
+					<span id="span-score" class="badge span-6"></span>
+					<span id="span-score" class="badge span-6"></span>
+				</div>
+				<div class="col-xs-12 col-md-12">
+				<form role="form">
+					<div class="form-group">
+						<label for="exampleInputPassword1"></label>
+						<textarea id="comment-context" class="form-control" rows="3" placeholder="点击上面的星星可以打分哦，重复点击增加或者减少0.5分"></textarea>
+					</div>
+
+				</form>
+				</div>
+				<div class="col-xs-12 col-md-12">
+					<button type="button" class="btn btn-success" ng-click="submitComment()">提交</button>
+					<button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+				</div>
+
+			</div>
+</script>
+
+<script type="text/ng-template" id="myModelLogin.html">
+<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">用户登陆</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="mail" class="form-control"
+							ng-model="mail" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+				</form>
+				<p>
+					<a href="main.html#/register">没有账号，去注册</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button  class="btn btn-success btn-block"
+					ng-click="userLogin()">登陆</button>
+			</div>
+	</script>
+
+<script type="text/javascript">
+
+</script>

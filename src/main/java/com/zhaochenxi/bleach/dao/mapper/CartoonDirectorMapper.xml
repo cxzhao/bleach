@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.ICartoonDirectorDao">
+	
+	<!-- 自定义返回结果集 -->
+	<resultMap id="CartoonDirectorMap" type="com.zhaochenxi.bleach.model.CartoonDirector" />
+
+	<insert id="save" parameterType="CartoonDirector">
+		INSERT INTO cartoonDirector(cartoonId,directorName)  VALUES (#{cartoonId}, #{directorName});		
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[delete from cartoonDirector where  cartoonId=#{cartoonId}]]>	
+	</delete>
+	
+	<insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO cartoonDirector (cartoonId, directorName)  VALUES  
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.cartoonId}, #{item.directorName})
+		</foreach>
+				
+	</insert>
+
+</mapper>    

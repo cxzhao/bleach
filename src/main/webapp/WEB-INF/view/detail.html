@@ -1,0 +1,269 @@
+<div id="main-context" class="main container-fluid"
+	style="margin-top: 10px">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-7 col-md-offset-1">
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<h1>{{cartoon.name}}</h1>
+				</div>
+				<div class="col-xs-7  col-sm-6 col-md-4">
+					<img class="img-responsive" alt="图片被外星人吃掉了！"
+						src="{{cartoon.themeImage}}" />
+				</div>
+				<div class="col-xs-5 col-sm-6 col-md-8">
+					<p>
+						<span ng-show="cartoon.score>5.5"
+							class="span-star span-start-whole glyphicon glyphicon-star"></span>
+						<span ng-show="cartoon.score<=5.5"
+							class="span-star span-start-half glyphicon glyphicon-star"></span>
+
+						<span ng-show="cartoon.score<6"
+							class="span-star glyphicon glyphicon-star"></span> <span
+							ng-show="cartoon.score>=6.5"
+							class="span-star span-start-whole glyphicon glyphicon-star"></span>
+						<span ng-show="cartoon.score<=6.5 && cartoon.score>6"
+							class="span-star span-start-half glyphicon glyphicon-star"></span>
+
+						<span ng-show="cartoon.score<7"
+							class="span-star glyphicon glyphicon-star"></span> <span
+							ng-show="cartoon.score>=7.5"
+							class="span-star span-start-whole glyphicon glyphicon-star"></span>
+						<span ng-show="scartoon.score<=7.5 && cartoon.score>7"
+							class="span-star span-start-half glyphicon glyphicon-star"></span>
+
+						<span ng-show="cartoon.score<8"
+							class="span-star glyphicon glyphicon-star"></span> <span
+							ng-show="cartoon.score>=9"
+							class="span-star span-start-whole glyphicon glyphicon-star"></span>
+						<span ng-show="cartoon.score<=8.5 && cartoon.score>8"
+							class="span-star span-start-half glyphicon glyphicon-star"></span>
+
+						<span ng-show="cartoon.score<9"
+							class="span-star glyphicon glyphicon-star"></span> <span
+							ng-show="cartoon.score<=10 && cartoon.score>9.5"
+							class="span-star span-start-whole glyphicon glyphicon-star"></span>
+						<span ng-show="cartoon.score<=9.5 && cartoon.score>9"
+							class="span-star span-start-half glyphicon glyphicon-star"></span>
+
+						<span class="badge span-6">{{cartoon.score | number : 1}}</span>
+					</p>
+					<p ng-show="isShowAuthor==true">
+						<lable>作者：{{cartoon.author}}</lable>
+					</p>
+					<p ng-show="isShowDirector==true">
+						<lable>编导：{{director}}</lable>
+					</p>
+					<p>
+						<lable>声优：{{akira}}</lable>
+					</p>
+					<p>
+						<lable>角色：{{role}}</lable>
+					</p>
+					<p>
+						<lable>年代：{{cartoon.years}}</lable>
+					</p>
+					<p>
+						<lable>类型：{{type}}</lable>
+					</p>
+					<p>
+						<lable>状态：{{isEnd}}</lable>
+					</p>
+					<p>
+						<lable>地区：{{cartoon.country}}</lable>
+					</p>
+					<p>
+						<lable>语言：{{cartoon.language}}</lable>
+					</p>
+					<p>
+						<lable>评论：{{cartoon.commentCount}}</lable>
+					</p>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<div class="div-padding-left col-xs-12 col-md-12 div-line"></div>
+					<div class="div-padding-left col-xs-8 col-md-8">
+						<div class="col-xs-12 col-md-12 height-10"></div>
+						<h3 class="text-h4">
+							<span class="glyphicon glyphicon-bookmark"></span>剧情简介
+						</h3>
+					</div>
+					<div class="div-padding-left col-xs-12 col-md-12"
+						ng-bind-html="cartoon.introduction | to_trusted"></div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-md-12">
+					<div class="div-padding-left div-line col-xs-12 col-md-12"></div>
+
+					<div class="div-padding-left col-xs-8 col-md-8">
+						<div class="col-xs-12 col-md-12 height-10"></div>
+						<h3 class="text-h4">
+							<span class="glyphicon glyphicon-bookmark"></span>我来打分
+						</h3>
+					</div>
+
+					<div class="div-padding-left-right col-xs-12 col-md-12 "
+						ng-repeat="comment in list">
+
+						<div class="div-padding-left-right col-xs-12 col-md-12 div-dashed"></div>
+
+
+
+						<div class="div-padding-left-right col-xs-12 col-md-12">
+							<div class="div-padding-left-right col-xs-6 col-md-6">
+								<span class="span-1">{{comment.name}}</span>&nbsp&nbsp&nbsp&nbsp<span
+									class="span-2">{{comment.createTime | date:'yyyy-MM-dd'
+									}}&nbsp&nbsp&nbsp&nbsp</span> <span class="badge span-6">{{comment.score
+									| number : 1}}分</span>
+							</div>
+
+							<div class="div-padding-left-right col-xs-6 col-md-6">
+								<a href="javascript:void(0)" ng-click="love(comment)"><span
+									class="span-float span-love-3 glyphicon glyphicon-heart"></span></a>
+								<span class="span-3 span-float">{{comment.agree}}</span>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-12 height-10"></div>
+						<div class="div-padding-left-right col-xs-12 col-md-12 text-1">
+							{{comment.context}}</div>
+						<div class="col-xs-12 col-md-12 height-10"></div>
+					</div>
+
+
+					<!-- 翻页控件 -->
+					<div class="div-padding-left-right col-xs-12 col-md-12 ">
+						<nav>
+							<ul class="pager">
+								<li class="previous"><a href="javascript:void(0)"
+									ng-click="prep()">&larr;</a></li>
+								<li class="next"><a href="javascript:void(0)"
+									ng-click="next()">&rarr;</a></li>
+							</ul>
+						</nav>
+					</div>
+
+				</div>
+				<div class="col-xs-12 col-md-12 div-padding-left-right">
+
+					<div class="col-xs-12 col-md-12">
+						<a href="javascript:void(0)" ng-click="clickStart(1)"
+							ng-mouseover="overStart(1)"><span id="start-1"
+							class="span-star glyphicon glyphicon-star"></span></a> <a
+							href="javascript:void(0)" ng-click="clickStart(2)"
+							ng-mouseover="overStart(2)"><span id="start-2"
+							class="span-star glyphicon glyphicon-star"></span></a> <a
+							href="javascript:void(0)" ng-click="clickStart(3)"
+							ng-mouseover="overStart(3)"><span id="start-3"
+							class="span-star glyphicon glyphicon-star"></span></a> <a
+							href="javascript:void(0)" ng-click="clickStart(4)"
+							ng-mouseover="overStart(4)"><span id="start-4"
+							class="span-star glyphicon glyphicon-star"></span></a> <a
+							href="javascript:void(0)" ng-click="clickStart(5)"
+							ng-mouseover="overStart(5)"><span id="start-5"
+							class="span-star glyphicon glyphicon-star"></span></a> <span
+							id="span-score" class="badge span-6"></span> <span
+							id="span-score" class="badge span-6"></span>
+					</div>
+
+					<div class="col-xs-12 col-md-12">
+						<form role="form">
+							<div class="form-group">
+								<label for="exampleInputPassword1"></label>
+								<textarea id="comment-context" class="form-control" rows="3"></textarea>
+							</div>
+
+
+						</form>
+					</div>
+
+
+
+					<div class="col-xs-12 col-md-12">
+						<button type="button" class="btn btn-success"
+							ng-click="submitComment()">提交</button>
+					</div>
+					<div class="col-xs-12 col-md-12 height-3"></div>
+					<div class="col-xs-12 col-md-12 height-3"></div>
+					<div class="col-xs-12 col-md-12 height-3"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			<br> <br> <br>
+
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color: #FFFFFF">
+					<h4 class="text-h4">热评推荐</h4>
+				</div>
+				<div class="panel-body">
+					<p ng-repeat="article in articleList">
+						<a href="#/commentdetail?id={{article.id}}" target="_blank"><span
+							class="span-11">{{$index+1}}.{{article.title}}</span></a>
+					</p>
+					<p>
+						<a href="#/comment" target="_blank">更多</a>
+					</p>
+				</div>
+			</div>
+
+			<!-- <div class="list-group ">
+				<div class="list-group-item title-back" style="background-color:#FFFFFF">
+					<h4 class="text-h4">网友推荐</h4>
+				</div>
+				<a class="list-group-item" ng-repeat="rec in recommendList">					
+					<p class="list-group-item-text span-11">{{rec.cartoonName}}</p>
+					<p class="list-group-item-text span-11">{{rec.reason}}</p>
+					<span class="span-2">{{rec.userName}}</span>
+				</a> <a class="list-group-item" href="#/recommend"> ...... </a>
+			</div> -->
+
+
+
+		</div>
+
+
+	</div>
+
+
+
+</div>
+
+
+<script type="text/ng-template" id="myModelLogin.html">
+<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">用户登陆</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="mail" class="form-control"
+							ng-model="mail" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+				</form>
+				<p>
+					<a href="main.html#/register">没有账号，去注册</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button  class="btn btn-success btn-block"
+					ng-click="userLogin()">登陆</button>
+			</div>
+	</script>
+</body>
+</html>

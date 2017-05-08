@@ -1,0 +1,210 @@
+<div id="main-context" class="main container-fluid"
+	style="margin-top: 30px; min-height: 700px;">
+	<div class="row">
+		<div
+			class="col-xs-12 col-sm-12 col-md-12 div-padding-left div-padding-right">
+			<div class="context-detail">
+				<div class="col-xs-12 col-sm-12 col-md-12 recommend-list-margin">
+					<h2 class="text-h3-1">{{comment.title}}</h2>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 recommend-list-margin">
+					<p>
+						<span class="span-9">{{comment.user.name}}</span> <span
+							class="span-8">{{comment.updateTime | date:'yyyy-MM-dd
+							HH:mm:ss'}}</span><span class="span-8">阅读({{comment.readCount}})</span>
+					</p>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12 div-line-2"></div>
+
+				<div class="panel-body" ng-bind-html="comment.context | to_trusted"></div>
+			</div>
+
+		</div>
+
+
+
+		<div class="col-xs-12 col-sm-12 col-md-8"></div>
+
+	</div>
+
+	<!--评论-->
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<div class="context-detail">
+				<div class="div-padding-left div-line col-xs-12 col-md-12"></div>
+
+				<div class="div-padding-left col-xs-8 col-md-8">
+					<h3>来了就留下你的评论吧......</h3>
+				</div>
+				<div class="div-padding-left-right col-xs-12 col-md-12 div-dashed-0"></div>
+				<div class="div-padding-left-right col-xs-12 col-md-12 "
+					ng-repeat="comment in list">
+	
+					<div class="col-xs-12 col-md-12 height-10"></div>
+					<div class="div-padding-left-right col-xs-5 col-md-5">
+						<!-- <div class="div-padding-left-right col-xs-6 col-md-6">
+							
+							<span class="span-10">{{comment.name}}</span>&nbsp&nbsp&nbsp&nbsp<span
+								class="span-2">{{comment.createTime | date:'yyyy-MM-dd HH:mm:ss' }}&nbsp&nbsp&nbsp&nbsp</span>
+						</div> -->
+						
+						<div class="div-padding-left col-xs-2 col-sm-2 col-md-2">
+							<img src="{{comment.user.headImage}}" class="head-img img-responsive"></img>							
+						</div>
+						<div class="div-padding-left col-xs-10 col-sm-10 col-md-10">
+							<div><span class="span-9">{{comment.user.name}}</span></div>
+							<div><span class="span-9">{{comment.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>							
+						</div>
+						
+					</div>
+					<div class="col-xs-12 col-md-12 height-10"></div>
+					<div class="div-padding-left-right col-xs-12 col-md-12 text-1">
+						{{comment.context}}</div>
+					<div class="col-xs-12 col-md-12 height-10"></div>
+					<div class="div-padding-left-right col-xs-12 col-md-12">
+				
+						<span class="span-1 span-right-2"><a
+							href="javascript:void(0);"ng-click="showReply(comment)"><!-- <span
+							class="span-love-2">{{comment.reply}}</span> --><span class="span-love-5 glyphicon glyphicon-pencil">&nbsp</span></a></span>
+									
+						<span ng-show="userId == comment.userId" class="span-1 span-right-2"><a
+							href="javascript:void(0);"ng-click="deleteComment(comment.id,comment.objectId,1)"><span class="span-love-5 glyphicon glyphicon-trash">&nbsp</span></a></span>
+												
+						<a href="javascript:void(0)" ng-click="love(comment)"><span class="span-love-5 glyphicon glyphicon-heart"></span></a><span
+							class="span-love-2 span-fleft">&nbsp{{comment.agree}}</span>
+
+					</div>
+					<div class="col-xs-12 col-md-12 height-3"></div>
+					<div class="div-padding-left-right col-xs-12 col-md-12 div-dashed-0"></div>
+					<div  class="div-padding-right col-xs-12 col-md-12 reply">
+						<div class="div-padding-left-right col-xs-12 col-md-12"
+							ng-repeat="reply in comment.replyList">
+							
+
+							<div class="col-xs-12 col-md-12 height-10"></div>
+							<div class="div-padding-left-right col-xs-12 col-md-12">
+								<div class="div-padding-left-right col-xs-6 col-md-6">
+									<span class="span-10">{{reply.userName}}</span>&nbsp&nbsp<span
+										class="span-10">@{{reply.objUserName}}</span>
+								</div>
+
+							</div>
+							<div class="col-xs-12 col-md-12 height-3"></div>
+							<div class="div-padding-left-right col-xs-12 col-md-12 text-1">
+								{{reply.context}}</div>
+							<div class="col-xs-12 col-md-12 height-3"></div>
+							<div class="div-padding-left-right col-xs-12 col-md-12">
+							
+								<span class="span-1 span-right-2"><a
+									href="javascript:void(0);" ng-click="childReplyShow(comment,reply)"><span class="span-love-5 glyphicon glyphicon-pencil">&nbsp</span></a></span> 
+								
+								<span class="span-2 span-left">{{reply.createTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
+									
+								<span ng-show="userId == reply.userId" class="span-1 span-right-2"><a href="javascript:void(0);"ng-click="deleteComment(reply.id,reply.objId,0)"><span class="span-love-5 glyphicon glyphicon-trash">&nbsp</span></a></span>
+							
+							</div>
+							<div class="col-xs-12 col-md-12 height-3"></div>
+
+						</div>
+						<div id="{{comment.id}}" class="commit-reply">
+							<div class="div-padding-left-right col-xs-12 col-md-12">
+								<form role="form">
+									<div class="form-group">
+										<label for="exampleInputPassword1"></label>
+										<textarea class="form-control" name="reply-context" rows="3"></textarea>
+									</div>
+									<div class="form-group">
+										<div>
+											<button type="button" class="btn btn-success" ng-click="reply()">提交</button>
+											<button type="button" class="btn btn-success" ng-click="showReply(comment)">取消</button>
+										</div>
+									</div>
+
+								</form>
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<!-- 翻页控件 -->
+				<div class="div-padding-left-right col-xs-12 col-md-12 ">
+					<nav>
+						<ul class="pager">
+							<li class="previous"><a href="javascript:void(0)" ng-click="prep()">&larr;</a></li>
+							<li class="next"><a href="javascript:void(0)" ng-click="next()">&rarr;</a></li>
+						</ul>
+					</nav>
+				</div>
+
+				<div class="col-xs-12 col-md-12 div-padding-left-right">
+					<form role="form">
+						<div class="form-group">
+							<label for="exampleInputPassword1"></label>
+							<textarea id="comment-context" name="commentContext"
+								class="form-control" rows="3"></textarea>
+						</div>
+						<div class="form-group">
+							<div>
+								<button type="button" class="btn btn-success"
+									ng-click="saveComment()">提交</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+</div>
+
+
+
+<script type="text/ng-template" id="myModelContent.html">
+<div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title">用户登陆</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="mail" class="form-control"
+							ng-model="mail" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+				</form>
+				<p>
+					<a href="main.html#/register">没有账号，去注册</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button  class="btn btn-success btn-block"
+					ng-click="userLogin()">登陆</button>
+			</div>
+	</script>
+
+
+<script type="text/javascript">
+	function replay(index) {
+		$("#" + index).css("display", "block");
+	}
+
+	function commitReplay(index) {
+		//$("#replay-"+index).css("display","none");
+	}
+</script>

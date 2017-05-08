@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="  
+           http://www.springframework.org/schema/beans     
+           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd    
+           http://www.springframework.org/schema/context     
+           http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+	<!-- 缓存管理 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager"></bean>
+	
+	<bean id="userRealm" class="com.zhaochenxi.bleach.shiro.realm.UserRealm" />
+
+	<!-- Shiro安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm"></property>
+	</bean>
+
+	<bean id="bleachFilter" class="com.zhaochenxi.bleach.shiro.filter.CorsShiroFilter"/>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="filters">
+			<map>
+				<entry key="kuayu" value-ref="bleachFilter"/>
+			</map>
+		</property>
+		<!-- Shiro的核心安全接口，这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager"></property>
+		<!-- 登录路径 -->
+		<property name="loginUrl" value="/user/toLogin" />
+		<!-- 用户访问无权限的链接时跳转此页面 -->
+		<property name="unauthorizedUrl" value="/user/unauthor" />
+		<!-- 过滤链定义 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/user/**=kuayu
+				/tag/**=anon,kuayu
+				/news/**=anon,kuayu
+				/message/**=anon,kuayu
+				/upload/**=anon,kuayu
+				/article/detail=anon,kuayu
+				/article/add=authc,kuayu
+				/article/myComment=authc,kuayu
+				/article/update=authc,kuayu
+				/article/delete=authc,kuayu
+				/article/query=anon,kuayu
+				/article/hot=anon,kuayu
+				/cartoonAdmin/**=roles[0],kuayu
+				/messageAdmin/**=roles[0],kuayu
+				/newsAdmin/**=roles[0],kuayu
+			</value>
+		</property>
+	</bean>
+
+
+</beans>

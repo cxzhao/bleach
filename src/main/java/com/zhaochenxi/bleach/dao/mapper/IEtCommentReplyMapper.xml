@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IEtCommentReplyDao">
+	
+	<insert id="save" parameterType="EtCommentReply">
+		<![CDATA[INSERT INTO etCommentReply (id, objId, objUserId, context, userId, createTime, agree, type,userName, objUserName) VALUES 
+			(#{id},#{objId},#{objUserId}, #{context},#{userId},#{createTime}, #{agree}, #{type},#{userName}, #{objUserName})]]>
+	</insert>
+	
+	<delete id="delete">
+		<![CDATA[delete from etCommentReply where id=#{0} and userId=#{1}]]>
+	</delete>
+	
+	<update id="updateUserName">
+		<![CDATA[update etCommentReply set userName=#{0} where userId=#{1}]]>
+	</update>
+	
+	<update id="updateObjName">
+		<![CDATA[update etCommentReply set objUserName=#{0} where objUserId=#{1}]]>
+	</update>
+	
+	<!-- <insert id="saveBatch" parameterType="java.util.List">
+		INSERT INTO `bleach`.`etCommentReply` (`commentId`, `replyId`)  VALUES  
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.commentId}, #{item.replyId})
+	</foreach>				
+	</insert> -->
+
+</mapper>    

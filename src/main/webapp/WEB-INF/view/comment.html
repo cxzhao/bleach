@@ -1,0 +1,149 @@
+<div id="main-context" class="main container-fluid"
+	style="background-color:#FFFFFF;min-height:700px;">
+
+	<div class="row" style="margin-top: 10px">
+		<div class="col-xs-12 col-sm-12 col-md-7 col-md-offset-1">
+			<div class="col-xs-12 col-sm-12 col-md-12 div-padding-left-right">
+				<div class="panel panel-default panel-margin">
+					<div class="panel-body">
+						<span class="span-7">写点什么</span> <a href="#/editComment"
+							target="_blank" class="btn btn-default element-right">写评论</a>
+							<button type="button" class="btn btn-default element-right"
+								style="margin-right: 5px;" data-toggle="modal"
+								data-target="#myModal">登陆</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="news-item col-xs-12 col-sm-12 col-md-12"
+				ng-repeat="comment in commentList">
+
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="div-padding-left col-xs-6 col-sm-6 col-md-6">
+						<div class="div-padding-left col-xs-2 col-sm-2 col-md-2">
+							<img src="{{comment.user.headImage}}" class="head-img img-responsive"></img>							
+						</div>
+						<div class="div-padding-left col-xs-10 col-sm-10 col-md-10">
+							<div><span class="span-9">{{comment.userName}}</span></div>
+							<div><span class="span-9">{{comment.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></div>							
+						</div>
+					</div>
+					<div class="div-padding-left col-xs-12 col-sm-12 col-md-12">
+
+					<p>
+					<h5>{{comment.title}}</h5>
+					</p>
+					</div>
+					
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<p>{{comment.introduction}}</p>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<p>
+						<a href="#/commentdetail?id={{comment.id}}" target="_blank">更多......</a>
+					</p>
+				</div>
+
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<p>
+						<span class="span-9">标签:</span> <span class="span-8"
+							ng-repeat="tag in comment.tagList">{{tag.tagName}}&nbsp&nbsp</span><span class="span-8">阅读({{comment.readCount}})</span>
+					</p>
+				</div>
+
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<nav style="text-align: center">
+					<ul class="pagination pagination-lg">
+						<li><a href="javascript:void(0)" ng-click="prep()">&laquo;</a></li>
+						<li ng-repeat="page in pageList"><a href="javascript:void(0)"
+							ng-click="currentPage(page)">{{page}}</a></li>
+						<li><a href="javascript:void(0)" ng-click="last()">&raquo;</a></li>
+					</ul>
+				</nav>
+			</div>
+
+
+		</div>
+
+
+
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color:#FFFFFF">
+					<h4 class="text-h4">热门标签</h4>
+				</div>
+				<div class="panel-body">
+					<span class="span-tag" ng-repeat="tag in tagList"><a class="tag-href"
+						href="javascript:void(0)" ng-click="queryByTag(tag)">{{tag.tagName}}</a></span>
+					<span class="span-tag"> <a href="javascript:void(0)"
+						ng-click="prepTag()">&larr;</a><a href="javascript:void(0)">&nbsp&nbsp切换&nbsp&nbsp</a><a href="javascript:void(0)"
+						ng-click="lastTag()">&rarr;</a>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-12 col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color:#FFFFFF">
+					<h4 class="text-h4">热们评论</h4>
+				</div>
+				<div class="panel-body">
+					<p ng-repeat="article in articleList"><a href="#/commentdetail?id={{article.id}}" target="_blank"><span class="span-11">{{$index+1}}.{{article.title}}</span></a></p>					
+					<p><a href="javascript:void(0)" ng-click="nextHotArticle()">更多</a></p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</div>
+<!-- 评论 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">用户登陆</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="mail" class="form-control"
+							ng-model="mail" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+				</form>
+				<p>
+					<a href="#/register">没有账号，去注册</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success btn-block"
+					ng-click="login()">登陆</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+</script>
+</body>
+</html>

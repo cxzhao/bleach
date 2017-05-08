@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.INewsDao">
+	
+	<resultMap id="newsMap" type="com.zhaochenxi.bleach.model.News">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="type" column="type" />
+		<result property="context" column="context" />
+		<result property="source" column="source" />
+		<result property="createTime" column="createTime" />
+		<result property="newsTime" column="newsTime" />
+		<result property="keyword" column="keyword" />
+		<result property="readCount" column="readCount" />
+		<result property="introduction" column="introduction" />
+		<result property="status" column="status" />
+		<result property="commentCount" column="commentCount" />
+		<result property="newsImage" column="newsImage" />
+		<collection property="tagList" ofType="Tag"
+			column="tagId">
+			<id property="id" column="tagId" />
+			<result property="tagName" column="tagName"/>
+			<result property="type" column="type"/>
+		</collection>
+		
+	</resultMap>
+	<!-- 自定义返回结果集 -->
+	<insert id="save" parameterType="News">
+		<![CDATA[INSERT INTO news (id, title, context, type, source, createTime, newsTime, keyword, readCount, introduction, status,newsImage,commentCount)
+		VALUES (#{id},#{title},#{context},#{type},#{source},#{createTime},#{newsTime},#{keyword},#{readCount},#{introduction},#{status},#{newsImage},#{commentCount})]]>
+	</insert>
+	
+	<update id="update" parameterType="News">
+		<![CDATA[update news set title=#{title},context=#{context},type=#{type},source=#{source},keyword=#{keyword},introduction=#{introduction},status=#{status} where id=#{id}]]>
+	</update>
+	
+	<update id="updateReadCount">
+		<![CDATA[update news set readCount=#{1} where id=#{0}]]>
+	</update>
+	
+	<update id="updateCommentCount">
+		<![CDATA[update news set commentCount=commentCount+1 where id=#{d}]]>
+	</update>
+	
+	<update id="decreaseCommentCount">
+		<![CDATA[update news set commentCount=commentCount-1 where id=#{d}]]>
+	</update>
+	
+	<update id="updateImage">
+		<![CDATA[update news set newsImage=#{1} where id=#{0}]]>
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[delete from news where id=#{0}]]>
+	</delete>
+	
+	<select id="queryById" parameterType="java.lang.String" resultMap="newsMap">
+	<![CDATA[select n.*,t.id as tagId,t.tagName,t.type from news n,tag t,newsTag nt where n.id=nt.newsId and nt.tagId = t.id and n.id=#{id}]]>
+	</select>
+	
+	<select id="queryNewsById" parameterType="java.lang.String" resultType="News">
+	<![CDATA[select n.* from news n where n.id=#{id}]]>
+	</select>
+	
+	<!-- <update id="updateImage">
+		<![CDATA[update news set newsImage=#{1} where id=#{0}]]>
+	</update> -->
+	
+	<select id="rowCountByKeyword" parameterType="java.lang.String" resultType="java.lang.Integer">
+	<![CDATA[select count(*) from news where keyword like concat(concat('%',#{keyword}),'%')]]>
+	</select>
+	
+	<select id="queryByKeyword" resultType="News">
+	<![CDATA[select id,title,introduction,newsImage,readCount,source,createTime,newsTime,status from news where status=#{3} and keyword like concat(concat('%',#{0}),'%') order by createTime desc limit #{1},#{2}]]>
+	</select>
+	
+	<select id="rowCountByType" resultType="java.lang.Integer">
+	<![CDATA[select count(*) from news where type=#{0} and status=#{1}]]>
+	</select>
+	
+	<select id="queryByType" resultType="News">
+	<![CDATA[select id,title,introduction,newsImage,readCount,source,createTime,newsTime,status from news where type=#{0} and status=#{3} order by createTime desc limit #{1},#{2}]]>
+	</select>
+	
+	<select id="rowCountByTag" resultType="java.lang.Integer">
+	<![CDATA[select count(n.id) from news n,newsTag t where t.tagId=#{0} and n.status=#{1} and n.id = t.newsId]]>
+	</select>
+	
+	<select id="queryByTag" resultType="News">
+	<![CDATA[select n.id,n.title,n.introduction,n.newsImage,n.readCount,n.source,n.createTime,n.newsTime,n.status from news n,newsTag t where t.tagId=#{0} and n.status=#{3} and n.id = t.newsId order by createTime desc limit #{1},#{2}]]>
+	</select>
+	
+	<select id="queryByTypeAndTag" resultType="News">
+	<![CDATA[select n.id,n.title,n.introduction,n.newsImage,n.readCount,n.source,n.createTime,n.newsTime,n.status from news n,newsTag t where t.tagId=#{0} and n.type=#{1} and n.status=#{4} and n.id = t.newsId order by createTime desc limit #{2},#{3}]]>
+	</select>
+	
+	<select id="rowCountByTypeAndTag" resultType="java.lang.Integer">
+	<![CDATA[select count(n.id) from news n,newsTag t where t.tagId=#{0} and n.type=#{1} and n.status=#{2} and n.id = t.newsId]]>
+	</select>
+	
+	<select id="queryByTypeAndKey" resultType="News">
+	<![CDATA[select id,title,introduction,newsImage,readCount,source,createTime,newsTime,status from news where type=#{0} and status=#{4} and keyword like concat(concat('%',#{1}),'%') order by createTime desc limit #{2},#{3}]]>
+	</select>
+	
+	<select id="rowCountByTypeAndKey" resultType="java.lang.Integer">
+	<![CDATA[select count(*) from news where type=#{0} and status=#{2} and keyword like concat(concat('%',#{1}),'%')]]>
+	</select>
+	
+	
+</mapper>    

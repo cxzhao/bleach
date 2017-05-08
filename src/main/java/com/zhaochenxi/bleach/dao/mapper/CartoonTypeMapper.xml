@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.ICartoonTypeDao">
+
+
+	<!-- 自定义返回结果集 -->
+	<resultMap id="CartoonTypeMap" type="com.zhaochenxi.bleach.model.CartoonType" />
+
+	<insert id="save" parameterType="CartoonType">
+		insert into cartoonType(id,typeName) values (#{id},#{typeName})
+	</insert>
+
+	<select id="queryAll" resultType="CartoonType">
+		select * from cartoonType
+	</select>
+
+	<delete id="delete" parameterType="java.lang.String">
+		delete from cartoonType where id=#{id}
+	</delete>
+
+	<select id="queryTypeByCartoonId" parameterType="java.lang.String"
+		resultType="cartoonType">
+	<![CDATA[select t.* from cartoonType t,cartoonTypeRelation r where r.cartoonId=#{cartoonId} and r.typeId=t.id]]>
+	</select>
+</mapper>    

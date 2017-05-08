@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaochenxi.bleach.dao.IMessageDao">
+
+	<!-- 自定义返回结果集 -->
+	<resultMap id="TagMap" type="com.zhaochenxi.bleach.model.Message" />
+
+	<insert id="save" parameterType="Message">
+		<![CDATA[insert into message (id,context) values (#{id},#{context})]]>
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		<![CDATA[delete from message where id=#{id}]]>
+	</delete>
+	
+	<select id="query">
+	<![CDATA[select * from message limit #{0},#{1}]]>
+	</select>
+
+</mapper>    

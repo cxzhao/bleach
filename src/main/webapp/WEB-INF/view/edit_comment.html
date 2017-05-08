@@ -1,0 +1,77 @@
+<div id="main-context" class="main container-fluid"
+	style="margin-top: 60px">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+			<div class="row">
+
+				<div class="col-xs-12 col-md-12">
+					<form role="form" name="commentForm" novalidate>
+						<div class="form-group">
+							<input type="text" class="form-control" name="title"
+								placeholder="标题：" ng-model="title" required> <span style="color: red"
+								ng-show="commentForm.title.$dirty && commentForm.title.$invalid">
+								<span ng-show="commentForm.title.$error.required">评论标题不能为空哦！</span>
+							</span>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" ng-model="tag" name="tag"
+								placeholder="标签：如海贼王，多个标签使用空格隔开" required>
+								<span style="color: red"
+								ng-show="commentForm.tag.$dirty && commentForm.tag.$invalid"> <span
+								ng-show="commentForm.tag.$error.required">评论标签能帮助你的文章被更多人看到，不能为空哦！</span>
+							</span>
+						</div>
+
+
+						<div class="form-group">
+							<div id="comment-text" style="height: 400px; height: 700px;"
+								ng-model="context" wang-editor></div>
+						</div>
+
+						<div class="form-group">
+							<div>
+								<button type="button" class="btn btn-success" ng-click="save(0)" ng-disabled="commentForm.title.$dirty && commentForm.title.$invalid ||
+  commentForm.tag.$dirty && commentForm.tag.$invalid">草稿</button>
+								<button type="button" class="btn btn-success" ng-click="save(1)">发布</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+<script type="text/ng-template" id="myModelContent.html">
+		<div class="modal-header">
+				<h4 class="modal-title">用户登陆</h4>
+			</div>
+			<div class="modal-body">
+				<form role="form" id="loginForm">
+					<div class="form-group">
+						<input type="text" name="mail" class="form-control"
+							ng-model="mail" placeholder="邮箱">
+					</div>
+
+					<div class="form-group">
+						<input type="password" name="password" ng-model="password"
+							class="form-control" placeholder="密码">
+					</div>
+
+				</form>
+				<p>
+					<a href="main.html#/register">没有账号，去注册</a>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button  class="btn btn-success btn-block"
+					ng-click="userLogin()">登陆</button>
+			</div>
+	</script>

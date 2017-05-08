@@ -1,0 +1,194 @@
+<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-0">
+	<div class="row">
+
+		<div class="col-xs-12 col-md-12">
+			<form role="form" enctype="multipart/form-data">
+				<div class="form-group">
+					<label>动漫名</label> <input type="text" class="form-control"
+						name="name" placeholder="动漫名">
+				</div>
+				<div class="form-group">
+					<label>英文名</label> <input type="text" class="form-control"
+						name="englishName" placeholder="英文名">
+				</div>
+				<label>主题图片</label>
+				<div class="input-group">
+					<input type="file" class="form-control" id="uploadfile" name="uploadfile">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button" ng-click="upload()">上传图片</button>
+					</span>
+				</div>
+
+				<div class="form-group">
+					<br> <label>类型:</label><br> <span
+						ng-repeat="type in typelist | filter:query"><input
+						type="checkbox" name="type" value="{{type.id}}"> <lable>&nbsp&nbsp{{type.typeName}}&nbsp&nbsp</lable></span>
+				</div>
+
+				<div class="form-group">
+					<label>关键字</label> <input type="text" class="form-control"
+						name="key" placeholder="多个用,隔开">
+				</div>
+				<div class="form-group">
+					<lable>编导：</lable>
+					<input type="text" class="form-control" name="director"
+						placeholder="多个用,隔开">
+				</div>
+				
+				<div class="form-group">
+					<lable>作者：</lable>
+					<input type="text" class="form-control" name="author"
+						placeholder="多个用,隔开">
+				</div>
+
+				<div class="form-group">
+					<lable>声优：</lable>
+					<input type="text" class="form-control" name="akira"
+						placeholder="多个用,隔开">
+				</div>
+
+				<div class="form-group">
+					<lable>角色：</lable>
+					<input type="text" class="form-control" name="role"
+						placeholder="多个用,隔开">
+				</div>
+
+				<div class="form-group">
+					<lable>简要介绍：</lable>
+					<textarea class="form-control" id="shortIntro" name="shortIntro"
+						placeholder=""></textarea>
+				</div>
+
+				<div class="row">
+					<div class="div-padding-left-right col-xs-12 col-sm-12 col-md-12">
+						<div class="form-group">
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<lable>评分：</lable>
+								<input type="text" type="score" class="form-control" name="name">
+
+								<lable>喜爱：</lable>
+								<input type="text" class="form-control" name="loveCount">
+
+								<lable>评论数：</lable>
+								<input type="text" class="form-control" name="commentCount">
+								
+								<lable>更新情况：</lable>
+								<select class="form-control" name="isEnd" id="isEnd">
+								<option value="0">连载中</option>
+								<option value="1">完结</option>
+								</select>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<lable>国家：</lable>
+								<input type="text" class="form-control" name="country">
+
+								<lable>语言：</lable>
+								<input type="text" class="form-control" name="language">
+
+								<lable>年代：</lable>
+								<input type="text" class="form-control" name="years">
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+				<div class="form-group"></div>
+				<div class="form-group">
+					<textarea id="introduction" name="introduction"
+						class="form-control" placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<div>
+						<button type="button" class="btn btn-success" ng-click="save(0)">草稿</button>
+						<button type="button" class="btn btn-success" ng-click="save(1)">发布</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	// 阻止输出log
+	wangEditor.config.printLog = false;
+
+	var editor = new wangEditor('introduction');
+
+	// 上传图片
+	editor.config.uploadImgUrl = '/upload';
+	editor.config.uploadParams = {
+	// token1: 'abcde',
+	// token2: '12345'
+	};
+	editor.config.uploadHeaders = {
+	// 'Accept' : 'text/x-json'
+	}
+	// editor.config.uploadImgFileName = 'myFileName';
+
+	// 隐藏网络图片
+	// editor.config.hideLinkImg = true;
+
+	// 表情显示项
+	editor.config.emotionsShow = 'value';
+	editor.config.emotions = {
+		'default' : {
+			title : '默认',
+			data : '../resourse/weditor/emotions.data'
+		}
+	};
+
+	// 插入代码时的默认语言
+	// editor.config.codeDefaultLang = 'html'
+
+	// 只粘贴纯文本
+	// editor.config.pasteText = true;
+
+	// 跨域上传
+	// editor.config.uploadImgUrl = 'http://localhost:8012/upload';
+
+	// 第三方上传
+	// editor.config.customUpload = true;
+
+	// 普通菜单配置
+	// editor.config.menus = [
+	//     'img',
+	//     'insertcode',
+	//     'eraser',
+	//     'fullscreen'
+	// ];
+	editor.config.menus = [ 'bold', 'underline', 'italic', 'strikethrough',
+			'eraser', 'forecolor', 'bgcolor', '|', 'quote', 'fontfamily',
+			'fontsize', 'head', 'unorderlist', 'orderlist', 'alignleft',
+			'aligncenter', 'alignright', '|', 'img', 'video', '|', 'undo',
+			'redo', 'fullscreen' ];
+	// onchange 事件
+	editor.onchange = function() {
+		console.log(this.$txt.html());
+	};
+
+	// 取消过滤js
+	// editor.config.jsFilter = false;
+
+	// 取消粘贴过来
+	// editor.config.pasteFilter = false;
+
+	// 设置 z-index
+	// editor.config.zindex = 20000;
+
+	// 语言
+	// editor.config.lang = wangEditor.langs['en'];
+
+	// 自定义菜单UI
+	// editor.UI.menus.bold = {
+	//     normal: '<button style="font-size:20px; margin-top:5px;">B</button>',
+	//     selected: '.selected'
+	// };
+	// editor.UI.menus.italic = {
+	//     normal: '<button style="font-size:20px; margin-top:5px;">I</button>',
+	//     selected: '<button style="font-size:20px; margin-top:5px;"><i>I</i></button>'
+	// };
+	editor.create();	
+</script>

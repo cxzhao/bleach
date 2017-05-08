@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+   xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+	<!-- 默认缓存 -->
+	<defaultCache copyOnRead="true" copyOnWrite="true" overflowToOffHeap="false"/>
+	
+	 <cache 
+	 name="tagCache" 
+	 overflowToOffHeap="false"
+	 timeToIdleSeconds="1300"
+	 timeToLiveSeconds="1300"
+	 copyOnRead="true"
+	 copyOnWrite="true"
+	 overflowToDisk="false"
+	 />
+	 
+	 <cache 
+	 name="hotArticleCache" 
+	 overflowToOffHeap="false"
+	 timeToIdleSeconds="1300"
+	 timeToLiveSeconds="1300"
+	 copyOnRead="true"
+	 copyOnWrite="true"
+	 overflowToDisk="false"
+	 />
+	 
+	 <cache 
+	 name="ArticleCache" 
+	 overflowToOffHeap="false"
+	 timeToIdleSeconds="1300"
+	 timeToLiveSeconds="1300"
+	 copyOnRead="true"
+	 copyOnWrite="true"
+	 overflowToDisk="false"
+	 />
+	 
+	  <cache 
+	 name="UserCache" 
+	 overflowToOffHeap="false"
+	 timeToIdleSeconds="1300"
+	 timeToLiveSeconds="1300"
+	 copyOnRead="true"
+	 copyOnWrite="true"
+	 overflowToDisk="false"
+	 />
+	 
+</ehcache>
